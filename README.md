@@ -9,3 +9,4 @@ Build instructions
 - Install [nodejs](http://nodejs.org/download/)
 - Fetch all project dependencies with `npm install`
 - Run the tests with `npm test`
+- To run the test automatically everytime a file changes use `npm run-script watch`

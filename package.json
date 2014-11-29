@@ -4,7 +4,8 @@
   "description": "Land a rocket on the moon !",
   "scripts": {
     "postinstall": "node_modules/.bin/bower install",
-    "test": "node_modules/.bin/gulp"
+    "test": "node_modules/.bin/gulp",
+    "watch": "node_modules/.bin/gulp watch & node_modules/karma/bin/karma start & wait"
   },
   "repository": {
     "type": "git",

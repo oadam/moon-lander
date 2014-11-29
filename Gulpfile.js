@@ -20,4 +20,8 @@ gulp.task('karma', ['ts'], function() {
 gulp.task('clean', function() {
     del(['build', 'release']);
 });
+
+gulp.task('watch', function() {
+    gulp.watch('src/*.ts', ['ts']);
+});
 gulp.task('default', ['karma']);
