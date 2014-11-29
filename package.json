@@ -1,0 +1,37 @@
+{
+  "name": "moon-lander",
+  "version": "0.0.1",
+  "description": "Land a rocket on the moon !",
+  "scripts": {
+    "postinstall": "node_modules/.bin/bower install",
+    "test": "node_modules/.bin/gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oadam/moon-lander.git"
+  },
+  "keywords": [
+    "game",
+    "rocket",
+    "orbit",
+    "land",
+    "typescript",
+    "box2d"
+  ],
+  "author": "Olivier Adam",
+  "license": "apache",
+  "bugs": {
+    "url": "https://github.com/oadam/moon-lander/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "gulp": "~3.8.10",
+    "gulp-typescript": "~2.3.0",
+    "gulp-karma": "0.0.4",
+    "jasmine-core": "~2.1.2",
+    "karma-jasmine": "~0.3.2",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "del": "~0.1.3",
+    "bower": "~1.3.12"
+  }
+}

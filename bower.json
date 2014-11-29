@@ -1,0 +1,19 @@
+{
+  "name": "moon-lander",
+  "homepage": "https://github.com/oadam/moon-lander",
+  "authors": [
+    "Olivier Adam"
+  ],
+  "license": "apache",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "DefinitelyTyped": "*"
+  }
+}
