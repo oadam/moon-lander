@@ -10,6 +10,6 @@ Build instructions
 - Fetch all project dependencies with `npm install`
 - Run the tests with `npm test`
 
-There is a `run.sh` scripts that :
+There is a `run.sh` script that :
 - Starts a web server on [localhost:8000](http://localhost:8000)
 - Launches the build and refresh the server everytime a source file is updated
