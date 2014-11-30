@@ -11,5 +11,5 @@ Build instructions
 - Run the tests with `npm test`
 
 There is a `run.sh` scripts that :
-- Starts a web server on http://localhost:8000
+- Starts a web server on [localhost:8000](http://localhost:8000)
 - Launches the build and refresh the server everytime a source file is updated
