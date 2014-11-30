@@ -12,4 +12,4 @@ Build instructions
 
 There is a `run.sh` script that :
 - Starts a web server on [localhost:8000](http://localhost:8000)
-- Launches the build and refresh the server everytime a source file is updated
+- Launches the build and refreshes the server everytime a source file is updated
