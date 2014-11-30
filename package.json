@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "node_modules/.bin/bower install",
     "test": "node_modules/.bin/gulp",
-    "watch": "node_modules/.bin/gulp watch & node_modules/karma/bin/karma start & wait"
+    "watch": "node_modules/.bin/gulp watch & node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",
