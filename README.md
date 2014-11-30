@@ -11,5 +11,7 @@ Build instructions
 - Run the tests with `npm test`
 - To run the test automatically everytime a file changes use `npm run-script watch`
 
-The site gets build in the `release` folder.
-You can run it on your host using `cd release && python -m SimpleHTTPServer`
+The site is built in the `release` folder.
+You can run it on your host using
+
+    cd release && python -m SimpleHTTPServer
