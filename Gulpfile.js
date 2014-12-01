@@ -36,6 +36,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/*.ts', ['default']);
+    gulp.watch('src/*.ts', ['build']);
 });
-gulp.task('default', ['ts', 'karma', 'js', 'index']);
+gulp.task('build', ['ts', 'js', 'index']);
+gulp.task('default', ['build', 'karma']);
