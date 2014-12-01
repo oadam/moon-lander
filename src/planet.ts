@@ -9,6 +9,7 @@ module Game {
 			private sunAttraction: number) {
 			}
 		getPos(time: number): Vec2.Vec2 {
+			//this function is based on https://github.com/arashaghevli/orbit/blob/master/orbit.js
 			var a = this.semiMajorAxis;
 			var e = this.excentricity;
 			var period = 2 * Math.PI * a* Math.sqrt(a/this.sunAttraction);

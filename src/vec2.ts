@@ -10,7 +10,7 @@ module Vec2 {
 			return this;
 		}
 		public length(): number {
-			return Math.sqrt(this.x * this.x + this.y + this.y);
+			return Math.sqrt(this.x*this.x + this.y*this.y);
 		}
 		public rotate(theta: number): Vec2 {
 			var c = Math.cos(theta);
