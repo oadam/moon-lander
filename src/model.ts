@@ -19,7 +19,7 @@ module Game {
         update(newTime: number);
     }
 
-    class PlanetDef {
+    interface PlanetDef {
         id: string;
         radius: number;
         semiMajorAxis: number;
