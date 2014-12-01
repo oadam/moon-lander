@@ -25,7 +25,6 @@
     "url": "https://github.com/oadam/moon-lander/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
     "gulp": "~3.8.10",
     "gulp-typescript": "~2.3.0",
     "gulp-karma": "0.0.4",
