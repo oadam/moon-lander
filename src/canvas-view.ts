@@ -25,6 +25,7 @@ module Game {
 			this.model.getPlanets().forEach((p) => {
 				var size = p.radius * scale;
 				var pos = p.position.clone();
+				pos.y *= -1;//canvas coordinates are reversed
 				pos.scale(scale);
 				pos.add(this.size.clone().scale(0.5));
 				this.ctx.fillRect(pos.x - size / 2, pos.y - size / 2, size, size);
