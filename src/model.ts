@@ -1,22 +1,15 @@
 /// <reference path="ticker.ts" />
 /// <reference path="planet.ts" />
+/// <reference path="vec2.ts" />
 module Game {
-    export interface Vec2 {
-        x: number;
-        y: number;
-    }
     export interface ViewModelPlanet {
         id: string;
         radius: number;
-        position: Vec2;
+        position: Vec2.Vec2;
     }
     export interface ViewModel {
         getPlanets(): ViewModelPlanet[];
-        getSize(): Vec2;
-    }
-
-    export interface Model {
-        update(newTime: number);
+        getSize(): Vec2.Vec2;
     }
 
     interface PlanetDef {
@@ -29,7 +22,7 @@ module Game {
     }
 
 
-    export class ModelImpl implements ViewModel, Model {
+    export class Model implements ViewModel {
         private static INTERVAL = 20;
 
         private ticker: Ticker.Ticker;
@@ -38,11 +31,11 @@ module Game {
             private sunAttraction: number,
             private planets: PlanetDef[],
             private startTime: number) {
-            this.ticker = new Ticker.Ticker(ModelImpl.INTERVAL, startTime);
+            this.ticker = new Ticker.Ticker(Model.INTERVAL, startTime);
         }
         public getSize(): Vec2.Vec2 {
-            var max = this.planets.reduce((max, p) => Math.max(p.radius, max), Number.MIN_VALUE);
-            return new Vec2.Vec2(1.2 * max, 1.2 * max);
+            var max = this.planets.reduce((max, p) => Math.max(p.semiMajorAxis * (1 + p.eccentricity), max), Number.MIN_VALUE);
+            return new Vec2.Vec2(2.4 * max, 2.4 * max);
         }
         public update(newTime: number) {
             this.ticker.ticks(newTime);

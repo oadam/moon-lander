@@ -4,9 +4,9 @@ module Game {
 
 	var moon = {
 		id: "moon",
-		radius: 1700,
+		radius: 10 * 1700,
 		semiMajorAxis: 384.0e3,
-		eccentricity: 5 * 0.0549,
+		eccentricity: 15 * 0.0549,
 		majorAxisLongitude: 10 / 180 * Math.PI,
 		startOffset: 0
 	};
@@ -18,9 +18,18 @@ module Game {
 		private model: Game.Model;
 		constructor() {
 		}
-		start() {
-			this.model = new Game.ModelImpl(earthAttraction, [moon], 0);
-			this.view = new Game.CanvasView(this.model);
+		public start() {
+			window.requestAnimationFrame((t) => this.onFrame(t));
+		}
+		private onFrame(timestamp: number) {
+			if (this.model == null) {
+				//first call
+				this.model = new Game.Model(earthAttraction, [moon], timestamp);
+				this.view = new Game.CanvasView(this.model);
+			}
+			this.model.update(timestamp);
+			this.view.render();
+			window.requestAnimationFrame((t) => this.onFrame(t));
 		}
 
 	}

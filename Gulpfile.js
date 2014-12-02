@@ -6,7 +6,9 @@ var inject = require('gulp-inject');
 
 gulp.task('ts', function() {
     var tsResult = gulp.src('src/*.ts')
-        .pipe(ts({}));
+        .pipe(ts({
+            noImplicitAny: true
+        }));
     return tsResult.js.pipe(gulp.dest('build'));
 });
 gulp.task('karma', ['ts'], function() {
@@ -24,7 +26,9 @@ gulp.task('js', ['ts'], function() {
 });
 gulp.task('index', ['js'], function() {
     var target = gulp.src('src/index.html');
-    var js = gulp.src('*.js', {cwd:'release'});
+    var js = gulp.src('*.js', {
+        cwd: 'release'
+    });
     return target.pipe(inject(js, {
             //relative: true
         }))

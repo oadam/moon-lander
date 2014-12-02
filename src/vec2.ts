@@ -9,6 +9,16 @@ module Vec2 {
 			this.y -= other.y;
 			return this;
 		}
+		public add(other: Vec2): Vec2 {
+			this.x += other.x;
+			this.y += other.y;
+			return this;
+		}
+		public scale(scale: number): Vec2 {
+			this.x *= scale;
+			this.y *= scale;
+			return this;
+		}
 		public length(): number {
 			return Math.sqrt(this.x*this.x + this.y*this.y);
 		}
