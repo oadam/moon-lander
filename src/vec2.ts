@@ -1,6 +1,6 @@
 module Vec2 {
 	export class Vec2 {
-		constructor(public x, public y) {}
+		constructor(public x: number, public y: number) {}
 		public clone(): Vec2 {
 			return new Vec2(this.x, this.y);
 		}
