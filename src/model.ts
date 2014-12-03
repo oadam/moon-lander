@@ -12,6 +12,11 @@ module Game {
     getSize(): Vec2.Vec2;
   }
 
+  interface MainPlanetDef {
+    mass: number;
+    radius: number;
+  }
+  
   interface PlanetDef {
     id: string;
     mass: number;
@@ -28,13 +33,14 @@ module Game {
     private static INTERVAL = 20;
 
     private ticker: Ticker.Ticker;
-    private centerOfMassAttraction: number;
+    private centralAttraction: number;
 
     constructor(
+        private mainPlanet: MainPlanetDef,
         private planets: PlanetDef[],
         private startTime: number) {
       this.ticker = new Ticker.Ticker(Model.INTERVAL, startTime);
-      this.centerOfMassAttraction = G * this.planets.reduce((sum, p) => sum + p.mass, 0);
+      this.centralAttraction = G * this.mainPlanet.mass;
     }
     public getSize(): Vec2.Vec2 {
       var max = this.planets.reduce((max, p) => Math.max(p.semiMajorAxis * (1 + p.eccentricity), max), Number.MIN_VALUE);
@@ -45,13 +51,18 @@ module Game {
     }
     public getPlanets(): ViewModelPlanet[] {
       var time = this.ticker.getTime();
-      return this.planets.map(p => {
+      var main = {
+        id: 'main',
+        radius: this.mainPlanet.radius,
+        position: new Vec2.Vec2(0, 0)
+      };
+      return [main].concat(this.planets.map(p => {
         return {
             id: p.id,
             radius: p.radius,
-            position: Game.getPlanetPosition(p, this.centerOfMassAttraction, time)
+            position: Game.getPlanetPosition(p, this.centralAttraction, time)
         };
-      });
+      }));
     }
   }
 }

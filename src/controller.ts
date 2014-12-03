@@ -12,13 +12,8 @@ module Game {
     startOffset: 0
   };
   var earth = {
-    id: "earth",
     mass: 5.972e24,
-    radius: 10 * 6400,
-    semiMajorAxis: 1e-5,
-    eccentricity: 0,
-    majorAxisLongitude: 0,
-    startOffset: 0
+    radius: 10 * 6400
   };
 
 
@@ -33,7 +28,7 @@ module Game {
     private onFrame(timestamp: number) {
       if (this.model == null) {
         //first call
-        this.model = new Game.Model([earth, moon], timestamp);
+        this.model = new Game.Model(earth, [moon], timestamp);
         this.view = new Game.CanvasView(this.model);
       }
       this.model.update(timestamp);
