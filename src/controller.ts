@@ -6,7 +6,7 @@ module Game {
 		id: "moon",
 		radius: 10 * 1700,
 		semiMajorAxis: 384.0e3,
-		eccentricity: 15 * 0.0549,
+		eccentricity: 5 * 0.0549,
 		majorAxisLongitude: 45 / 180 * Math.PI,
 		startOffset: 0
 	};
@@ -14,7 +14,7 @@ module Game {
 		id: "earth",
 		radius: 10 * 6400,
 		semiMajorAxis: 1e-5,
-		eccentricity: 1,
+		eccentricity: 0,
 		majorAxisLongitude: 0,
 		startOffset: 0
 	};

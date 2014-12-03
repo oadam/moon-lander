@@ -15,12 +15,18 @@ module Game {
         var a = arg.semiMajorAxis;
         var e = arg.eccentricity;
         var period = 2 * Math.PI * a * Math.sqrt(a / sunAttraction);
-        var M = arg.startOffset + 2 * Math.PI * time / period;
+        var inPeriod = (time/period) % 1;
+        var M = arg.startOffset + 2 * Math.PI * inPeriod;
 
         // Compute the eccentric anomaly E from the mean anomaly M and from the eccentricity e (E and M in degrees):
         var E = M + e * Math.sin(M) * (1.0 + e * Math.cos(M));
         var error = 1;
+        var count = 0;
         while (error > 0.005) {
+            count++;
+            if (count > 100) {
+                throw new Error('infinite loop');
+            }
             var E1 = E - (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
             error = Math.abs(E - E1);
             E = E1;
