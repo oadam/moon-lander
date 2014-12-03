@@ -8,7 +8,7 @@ module Game {
     radius: 10 * 1737.0e3,
     semiMajorAxis: 384.0e6,
     eccentricity: 5 * 0.0549,
-    majorAxisLongitude: 45 / 180 * Math.PI,
+    majorAxisLongitude: 0 * 45 / 180 * Math.PI,
     startOffset: 0
   };
   var earth = {
@@ -16,7 +16,7 @@ module Game {
     radius: 10 * 6400.0e3
   };
 
-  var monthDuration = 10;//seconds
+  var monthDuration = 0.03*10;//seconds
   var timescale = 31*24*3600 / monthDuration;
 
   export class Controller {

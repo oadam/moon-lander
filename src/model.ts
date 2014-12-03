@@ -36,10 +36,9 @@ module Game {
     private lastTick: number;
     private lastTime: number;
     private centralAttraction: number;
-    //private INITIAL_SPEED = new Vec2.Vec2(0, 9000);
-    private craftSpeed = new Vec2.Vec2(0, 40);
-    private craftPosition = new Vec2.Vec2(100.0e6, 0);//10000 km
-    //private prevCraftPosition = this.craftPosition.clone().subtract(this.INITIAL_SPEED.clone().scale(1 / Model.INTERVAL));
+    private craftInitSpeed = new Vec2.Vec2(0, 43.05);
+    private craftPosition = new Vec2.Vec2(276.3e6, 0);//10000 km
+    private prevCraftPosition = this.craftPosition.clone().subtract(this.craftInitSpeed.clone().scale(Model.INTERVAL));
 
     constructor(
         private mainPlanet: MainPlanetDef,
@@ -60,17 +59,16 @@ module Game {
         var acceleration = new Vec2.Vec2(0, 0);
         this.addPlanetAttraction(acceleration, this.mainPlanet.mass, new Vec2.Vec2(0, 0));
         for (var i = 0; i < this.planets.length; i++) {
+          continue;
           var planet = this.planets[i];
           this.addPlanetAttraction(acceleration, planet.mass, this.getPlanetPosition(planet, time));
         }
 
-        acceleration.scale(Model.INTERVAL);
-        this.craftSpeed.add(acceleration);
-        this.craftPosition.add(this.craftSpeed.clone().scale(Model.INTERVAL));
         //verlet integration http://en.wikipedia.org/wiki/Verlet_integration
-        //acceleration.scale(Math.pow(Model.INTERVAL, 2));
-        //this.craftPosition.scale(2).subtract(this.prevCraftPosition).add(acceleration);
-        //this.prevCraftPosition = this.craftPosition.clone();
+        acceleration.scale(Math.pow(Model.INTERVAL, 2));
+        var prev = this.prevCraftPosition.clone();
+        this.prevCraftPosition = this.craftPosition.clone();
+        this.craftPosition.scale(2).subtract(prev).add(acceleration);
       }
       this.lastTime = newTime;
     }
