@@ -1,5 +1,6 @@
 /// <reference path="model.ts" />
 /// <reference path="canvas-view.ts" />
+/// <reference path="vec2.ts" />
 module Game {
 
   var moon = {
@@ -15,6 +16,8 @@ module Game {
     mass: 5.972e24,
     radius: 10 * 6400.0e3
   };
+  var craftInitSpeed = () => new Vec2.Vec2(0, 43.05);
+  var craftInitPosition = () => new Vec2.Vec2(276.3e6, 0);//10000 km
 
   var monthDuration = 0.03*10;//seconds
   var timescale = 31*24*3600 / monthDuration;
@@ -31,7 +34,7 @@ module Game {
       var timestampSecond = timestamp / 1.0e3 * timescale;
       if (this.model == null) {
         //first call
-        this.model = new Game.Model(earth, [moon], timestampSecond);
+        this.model = new Game.Model(earth, [moon], craftInitPosition(), craftInitSpeed(), timestampSecond);
         this.view = new Game.CanvasView(this.model);
       }
       this.model.update(timestampSecond);

@@ -36,17 +36,20 @@ module Game {
     private lastTick: number;
     private lastTime: number;
     private centralAttraction: number;
-    private craftInitSpeed = new Vec2.Vec2(0, 43.05);
-    private craftPosition = new Vec2.Vec2(276.3e6, 0);//10000 km
-    private prevCraftPosition = this.craftPosition.clone().subtract(this.craftInitSpeed.clone().scale(Model.INTERVAL));
+    private craftPosition: Vec2.Vec2;
+    private prevCraftPosition: Vec2.Vec2;
 
     constructor(
         private mainPlanet: MainPlanetDef,
         private planets: PlanetDef[],
+        craftInitPosition: Vec2.Vec2,
+        craftInitSpeed: Vec2.Vec2,
         private startTime: number) {
-      this.lastTick = startTime;
-      this.lastTime = startTime;
+      this.lastTick = this.startTime;
+      this.lastTime = this.startTime;
       this.centralAttraction = G * this.mainPlanet.mass;
+      this.craftPosition = craftInitPosition.clone();
+      this.prevCraftPosition = this.craftPosition.clone().subtract(craftInitSpeed.clone().scale(Model.INTERVAL));
     }
     public getSize(): Vec2.Vec2 {
       var max = this.planets.reduce((max, p) => Math.max(p.semiMajorAxis * (1 + p.eccentricity), max), Number.MIN_VALUE);
@@ -81,7 +84,7 @@ module Game {
     }
 
     private getPlanetPosition(planet: PlanetDef, time: number) {
-      return Game.getPlanetPosition(planet, this.centralAttraction, time);
+      return Game.getPlanetPosition(planet, this.centralAttraction, time - this.startTime);
     }
     public getPlanets(): ViewModelPlanet[] {
       var main = {
