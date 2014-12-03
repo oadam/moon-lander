@@ -2,7 +2,10 @@
 /// <reference path="vec2.ts" />
 module Game {
   export class CanvasView {
-    private static height = 600;
+    private static height = 1000;
+    private static rocketLength = 30;
+    private static rocketWidth = 5;
+
     private ctx: CanvasRenderingContext2D;
     private size: Vec2.Vec2;
     constructor(private model: Game.ViewModel) {
@@ -42,13 +45,37 @@ module Game {
         this.ctx.restore();
       });
       this.ctx.fillStyle = "rgb(0, 200, 0)";
-      var pos = this.model.getCraft().clone();
+      var craft = this.model.getCraft();
+      var pos = craft.position.clone();
       pos.y *= -1;//canvas coordinates are reversed
       pos.scale(scale);
       pos.add(this.size.clone().scale(0.5));
       this.ctx.save();
       this.ctx.translate(pos.x, pos.y);
-      this.drawCircle(this.model.getPlanets()[1].radius * scale);
+      this.ctx.rotate(-craft.angle);
+      this.ctx.fillRect(
+          -CanvasView.rocketLength / 2,
+          -CanvasView.rocketWidth / 2,
+          CanvasView.rocketLength,
+          CanvasView.rocketWidth
+      );
+      this.ctx.fillStyle = "rgb(0, 20, 255)";
+      this.ctx.fillRect(
+          CanvasView.rocketLength * 4 / 10,
+          -CanvasView.rocketWidth / 2,
+          CanvasView.rocketLength / 10,
+          CanvasView.rocketWidth
+      );
+      if (craft.engineOn) {
+        this.ctx.fillStyle = "rgb(255, 20, 0)";
+        this.ctx.fillRect(
+            -CanvasView.rocketLength / 2,
+            -CanvasView.rocketWidth / 2,
+            CanvasView.rocketLength / 10,
+            CanvasView.rocketWidth
+        );
+      }
+
       this.ctx.restore();
     }
   }

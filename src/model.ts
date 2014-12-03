@@ -7,7 +7,7 @@ module Game {
     position: Vec2.Vec2;
   }
   export interface ViewModel {
-    getCraft(): Vec2.Vec2;
+    getCraft(): CraftViewModel;
     getPlanets(): ViewModelPlanet[];
     getSize(): Vec2.Vec2;
   }
@@ -28,9 +28,15 @@ module Game {
   }
 
   var G = 6.673e-11;
+  export interface CraftViewModel {
+    angle: number;
+    position: Vec2.Vec2;
+    engineOn: boolean;
+  }
 
   export class Model implements ViewModel {
-    private static INTERVAL = 3600;//seconds
+    private static INTERVAL = 10;//seconds
+    private static ENGINE_ACCEL = 0.01 * 20;//m.s-2
 
     //time of last physics step
     private lastTick: number;
@@ -38,6 +44,8 @@ module Game {
     private centralAttraction: number;
     private craftPosition: Vec2.Vec2;
     private prevCraftPosition: Vec2.Vec2;
+    public craftAngle = 0;
+    public engineOn = false;
 
     constructor(
         private mainPlanet: MainPlanetDef,
@@ -64,6 +72,9 @@ module Game {
         for (var i = 0; i < this.planets.length; i++) {
           var planet = this.planets[i];
           this.addPlanetAttraction(acceleration, planet.mass, this.getPlanetPosition(planet, time));
+        }
+        if (this.engineOn) {
+          acceleration.add(new Vec2.Vec2(Model.ENGINE_ACCEL, 0).rotate(this.craftAngle));
         }
 
         //verlet integration http://en.wikipedia.org/wiki/Verlet_integration
@@ -99,8 +110,12 @@ module Game {
         };
       }));
     }
-    public getCraft(): Vec2.Vec2 {
-      return this.craftPosition.clone();
+    public getCraft(): CraftViewModel {
+      return {
+        angle: this.craftAngle,
+        position: this.craftPosition.clone(),
+        engineOn: this.engineOn
+      };
     }
   }
 }
