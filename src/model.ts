@@ -27,7 +27,7 @@ module Game {
     startOffset: number;
   }
 
-  var G = 6.673e-14;
+  var G = 6.673e-11;
 
   export class Model implements ViewModel {
     private static INTERVAL = 3600;//seconds
@@ -62,7 +62,6 @@ module Game {
         var acceleration = new Vec2.Vec2(0, 0);
         this.addPlanetAttraction(acceleration, this.mainPlanet.mass, new Vec2.Vec2(0, 0));
         for (var i = 0; i < this.planets.length; i++) {
-          continue;
           var planet = this.planets[i];
           this.addPlanetAttraction(acceleration, planet.mass, this.getPlanetPosition(planet, time));
         }
