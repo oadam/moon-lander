@@ -1,5 +1,5 @@
 /// <reference path="model.ts" />
-/// <reference path="canvas-view.ts" />
+/// <reference path="view.ts" />
 /// <reference path="vec2.ts" />
 module Game {
 
