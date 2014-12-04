@@ -25,7 +25,7 @@ module Game {
   export class Controller {
     private static TURNING_SPEED = Math.PI / 2;//rad per seconds
 
-    private view: Game.CanvasView;
+    private view: Game.View;
     private model: Game.Model;
     private lastTimestamp: number;
     private turning = 0;
@@ -66,7 +66,7 @@ module Game {
         //first call
         this.lastTimestamp = timestamp;
         this.model = new Game.Model(earth, [moon], craftInitPosition(), craftInitSpeed(), timestampSecond);
-        this.view = new Game.CanvasView(this.model);
+        this.view = new Game.View(this.model);
       }
       this.model.craftAngle += this.turning * Controller.TURNING_SPEED * (timestamp - this.lastTimestamp) / 1000;
       this.model.update(timestampSecond);

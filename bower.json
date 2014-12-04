@@ -14,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "DefinitelyTyped": "*"
+    "DefinitelyTyped": "*",
+    "pixi": "~2.1.1"
   }
 }

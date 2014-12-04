@@ -7,7 +7,7 @@ var inject = require('gulp-inject');
 gulp.task('ts', function() {
     var tsResult = gulp.src('src/*.ts')
         .pipe(ts({
-            noImplicitAny: true
+            noImplicitAny: false//PIXI is full of warnings
         }));
     return tsResult.js.pipe(gulp.dest('build'));
 });
@@ -21,7 +21,10 @@ gulp.task('karma', ['ts'], function() {
         });
 });
 gulp.task('js', ['ts'], function() {
-    var sources = gulp.src(['build/*.js', '!build/*_test.js']);
+    var sources = gulp.src([
+        'build/*.js', '!build/*_test.js',
+        'bower_components/pixi/bin/pixi.dev.js'
+    ]);
     return sources.pipe(gulp.dest('release'));
 });
 gulp.task('index', ['js'], function() {
