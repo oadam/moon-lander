@@ -23,7 +23,8 @@ gulp.task('karma', ['ts'], function() {
 gulp.task('js', ['ts'], function() {
     var sources = gulp.src([
         'build/*.js', '!build/*_test.js',
-        'bower_components/pixi/bin/pixi.dev.js'
+        'bower_components/pixi/bin/pixi.dev.js',
+	'src/assets/*'
     ]);
     return sources.pipe(gulp.dest('release'));
 });

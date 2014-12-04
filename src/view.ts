@@ -12,7 +12,8 @@ module Game {
     private renderer: PIXI.IPixiRenderer;
     private scale: number;
     private planets: {[id: string]: PIXI.Graphics} = {};
-    private craft: PIXI.Graphics;
+    private craft: PIXI.DisplayObjectContainer;
+    private craftFire: PIXI.Sprite;
 
     constructor(private model: Game.ViewModel) {
       var modelSize = this.model.getSize();
@@ -29,16 +30,23 @@ module Game {
           planet.endFill();
           this.stage.addChild(planet);
           this.planets[p.id] = planet;
-      })
-      this.craft = new PIXI.Graphics();
-      this.craft.beginFill();
-      this.craft.drawRect(
-          -View.rocketLength / 2,
-          -View.rocketWidth / 2,
-          View.rocketLength,
-          View.rocketWidth
-      );
-      this.craft.endFill();
+      });
+
+      this.craft = new PIXI.DisplayObjectContainer();
+
+      var fireTexture = PIXI.Texture.fromImage("fire.png");
+      this.craftFire = new PIXI.Sprite(fireTexture);
+      this.craftFire.anchor.x = 0.5;
+      this.craftFire.anchor.y = 0.5;
+      this.craftFire.position.x = -120;
+      this.craft.addChild(this.craftFire);
+
+      var craftTexture = PIXI.Texture.fromImage("rocket.png");
+      var craftBody = new PIXI.Sprite(craftTexture);
+      craftBody.anchor.x = 0.5;
+      craftBody.anchor.y = 0.5;
+      this.craft.addChild(craftBody);
+
       this.stage.addChild(this.craft);
       document.body.appendChild(this.renderer.view);
     }
@@ -52,6 +60,7 @@ module Game {
       this.craft.position.x = pos.x;
       this.craft.position.y = pos.y;
       this.craft.rotation = -modelCraft.angle;
+      this.craftFire.visible = modelCraft.engineOn;
     }
     private updatePlanets() {
         this.model.getPlanets().forEach((p) => {
