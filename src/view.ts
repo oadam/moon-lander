@@ -33,6 +33,8 @@ module Game {
       });
 
       this.craft = new PIXI.DisplayObjectContainer();
+      this.craft.scale.x = 0.3;
+      this.craft.scale.y = 0.3;
 
       var fireTexture = PIXI.Texture.fromImage("fire.png");
       this.craftFire = new PIXI.Sprite(fireTexture);

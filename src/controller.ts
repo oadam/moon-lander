@@ -28,6 +28,7 @@ module Game {
     private view: Game.View;
     private model: Game.Model;
     private lastTimestamp: number;
+    private lastModelTime = 0;
     private turning = 0;
     constructor() {
     }
@@ -44,6 +45,12 @@ module Game {
             break;
           case 39:
             this.turning = -1;
+            break;
+          case 107:
+            timescale *= 2;
+            break;
+          case 109:
+            timescale /= 2;
             break;
         }
       }
@@ -65,11 +72,13 @@ module Game {
       if (this.model == null) {
         //first call
         this.lastTimestamp = timestamp;
-        this.model = new Game.Model(earth, [moon], craftInitPosition(), craftInitSpeed(), timestampSecond);
+        this.model = new Game.Model(earth, [moon], craftInitPosition(), craftInitSpeed(), 0);
         this.view = new Game.View(this.model);
       }
       this.model.craftAngle += this.turning * Controller.TURNING_SPEED * (timestamp - this.lastTimestamp) / 1000;
-      this.model.update(timestampSecond);
+      var dt = (timestamp - this.lastTimestamp) / 1000 * timescale;
+      this.lastModelTime += dt;
+      this.model.update(this.lastModelTime);
       this.view.render();
       this.lastTimestamp = timestamp;
       window.requestAnimationFrame((t) => this.onFrame(t));
